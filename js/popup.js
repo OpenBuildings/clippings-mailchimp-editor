@@ -4,7 +4,17 @@
 var products = new Bloodhound({
 	queryTokenizer: Bloodhound.tokenizers.whitespace,
 	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-	remote: 'https://clippings.dev/search/typeahead?q=%QUERY'
+	remote: {
+		url: 'https://clippings.dev/search/typeahead?q=%QUERY',
+		ajax: {
+	        beforeSend: function() {
+	        	$('[data-typeahead-loading]').removeClass('hidden');
+	        },
+	        complete: function() {
+	            $('[data-typeahead-loading]').addClass('hidden');
+	        }
+	    }
+	}
 });
 
 products.initialize();
@@ -23,15 +33,6 @@ $('[data-provide~="typeahead"]')
 		$($(this).data('typeaheadList'))
 			.product_list('add', product);
 	});
-
-// Use global ajax progress since bloodhound does not support it
-$(document).ajaxSend(function(event, jqXHR, settings) {
-	$('[data-typeahead-loading]').removeClass('hidden');
-});
-
-$(document).ajaxComplete(function(event, jqXHR, settings) {
-	$('[data-typeahead-loading]').addClass('hidden');
-});
 
 // Extract information from the current page, containing CodeMirror
 // It depends on a content script (js/script.js), using messaging
