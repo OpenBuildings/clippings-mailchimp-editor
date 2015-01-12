@@ -5,7 +5,7 @@ var products = new Bloodhound({
 	queryTokenizer: Bloodhound.tokenizers.whitespace,
 	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
 	remote: {
-		url: 'https://clippings.dev/search/typeahead?q=%QUERY',
+		url: 'https://clippings.com/search/typeahead?q=%QUERY',
 		ajax: {
 	        beforeSend: function() {
 	        	$('[data-provide~="typeahead"]').closest('.form-group').removeClass('has-error');

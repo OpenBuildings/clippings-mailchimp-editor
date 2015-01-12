@@ -3,11 +3,11 @@
 
   "name": "Clippings Mailchimp Editor",
   "description": "Adds ability to insert products section in mailchimp template",
-  "version": "0.1",
+  "version": "0.1.0",
 
   "permissions": [
     "tabs",
-    "https://clippings.dev/search/typeahead"
+    "https://clippings.com/search/typeahead"
   ],
   "background": {
     "page": "background.html"
