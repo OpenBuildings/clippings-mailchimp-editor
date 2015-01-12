@@ -1,0 +1,6 @@
+.draggble-handle {
+	cursor: ns-resize;
+}
+span.twitter-typeahead .tt-dropdown-menu{
+	width: 400px;
+}

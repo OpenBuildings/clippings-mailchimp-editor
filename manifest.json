@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+
+  "name": "Clippings Mailchimp Editor",
+  "description": "Adds ability to insert products section in mailchimp template",
+  "version": "0.1",
+
+  "permissions": [
+    "tabs",
+    "https://clippings.dev/search/typeahead"
+  ],
+  "background": {
+    "page": "background.html"
+  },
+  "page_action": {
+    "default_icon": "icon.png",
+    "default_title": "Clippings Products tab",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://us1.admin.mailchimp.com/*"],
+      "js": ["js/content.js"],
+      "run_at":"document_idle"
+    }
+  ]
+}
