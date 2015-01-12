@@ -8,7 +8,12 @@ var products = new Bloodhound({
 		url: 'https://clippings.dev/search/typeahead?q=%QUERY',
 		ajax: {
 	        beforeSend: function() {
+	        	$('[data-provide~="typeahead"]').closest('.form-group').removeClass('has-error');
 	        	$('[data-typeahead-loading]').removeClass('hidden');
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+		        $('[data-provide~="typeahead"]').closest('.form-group').addClass('has-error');
+		        $('[data-provide~="alerts"]').alerts('danger', errorThrown);
 	        },
 	        complete: function() {
 	            $('[data-typeahead-loading]').addClass('hidden');
