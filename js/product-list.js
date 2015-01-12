@@ -105,7 +105,6 @@
 					product3: products[i+2],
 				}
 			};
-			console.debug(rows);
 
 			this.getOutput()
 				.toggleClass("hidden", ! rows.length)
