@@ -13,18 +13,31 @@
 
 		constructor: Alerts,
 
-		add: function (text) {
+		add: function(type, message)
+		{
 			var item = Mustache.render(this.template, {
-				message: text
+				message: message,
+				type: type || 'info'
 			});
-
 			$(item).prependTo(this.element);
 		},
+		warning: function (message) {
+			this.add('warning', message);
+		},
+		danger: function (message) {
+			this.add('danger', message);
+		},
+		info: function (message) {
+			this.add('info', message);
+		},
+		success: function (message) {
+			this.add('success', message);
+		}
 	};
 
 	var old = $.fn.alerts;
 
-	$.fn.alerts = function (option, param) {
+	$.fn.alerts = function (option, param1, param2) {
 		return this.each(function () {
 			var $this = $(this),
 					data = $this.data('alerts'),
@@ -35,7 +48,7 @@
 			}
 
 			if (typeof option === 'string') {
-				data[option](param);
+				data[option](param1, param2);
 			}
 		});
 	};
