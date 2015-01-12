@@ -13,30 +13,53 @@
 	 *   data-title: A selector for the input, containing the title
 	 */
 	var ProductList = function (element, options) {
-		var self = this;
 		this.element = $(element);
-		this.productTemplate = $(this.element.data('productTemplate')).html();
-		this.outputTemplate = $(this.element.data('outputTemplate')).html();
-		this.output = $(this.element.data('output'));
-		this.title = $(this.element.data('title'));
-
-		this.output.on('focus.product-list.data-api', function (e) {
-			self.renderOutput();
-			this.select();
-		});
-
 		this.element.tableDnD({
 			onDragClass: 'active',
 			dragHandle: 'img',
-		})
+		});
+
+		var self = this;
+
+		$(document).on('focus.product-list.data-api', this.element.data('output'), function (e) {
+			self.renderOutput();
+			this.select();
+		});
 	};
 
 	ProductList.prototype = {
 
 		constructor: ProductList,
 
+		getProductTemplate: function()
+		{
+			return $(this.element.data('productTemplate')).html();
+		},
+
+		getOutputTemplate: function()
+		{
+			return $(this.element.data('outputTemplate')).html();
+		},
+
+		getOutput: function()
+		{
+			return $(this.element.data('output'));
+		},
+
+		getTitle: function()
+		{
+			return $(this.element.data('title'));
+		},
+
+		getProducts: function()
+		{
+			return $.map(this.element.find('tr'), function(item) {
+				return $(item).data('product');
+			});
+		},
+
 		add: function (product) {
-			var item = Mustache.render(this.productTemplate, {
+			var item = Mustache.render(this.getProductTemplate(), {
 				data: JSON.stringify(product),
 				product: product
 			});
@@ -49,13 +72,18 @@
 
 		updateSortable: function()
 		{
-			var self = this;
-			this.element.parent().tableDnDUpdate();
+			this.element.tableDnDUpdate();
 		},
 
 		updateTitle: function (title)
 		{
-			this.title.val(title);
+			this.getTitle().val(title);
+		},
+
+		clear: function()
+		{
+			this.element.find('tr').remove();
+			this.updateSortable();
 		},
 
 		remove: function(item)
@@ -66,25 +94,24 @@
 		},
 
 		renderOutput: function() {
-			var products = $.map(this.element.find('tr'), function(item) {
-					return $(item).data('product');
-				}),
+			var products = this.getProducts(),
 				rows = [];
 
 			// separate rows into chunks of 3 as rows for the template
 			for (var i = 0; i < products.length; i+=3) {
-				rows[i%3] = {
+				rows[Math.floor(i/3)] = {
 					product1: products[i],
 					product2: products[i+1],
 					product3: products[i+2],
 				}
 			};
+			console.debug(rows);
 
-			this.output
+			this.getOutput()
 				.toggleClass("hidden", ! rows.length)
 				.val(
-					Mustache.render(this.outputTemplate, {
-						title: this.title.val(),
+					Mustache.render(this.getOutputTemplate(), {
+						title: this.getTitle().val(),
 						products: JSON.stringify(products),
 						rows: rows
 					})
