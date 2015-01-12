@@ -50,12 +50,13 @@ $('[data-provide~="load"]')
 				var dataDump = $('<div>'+response.html+'</div>').find('#data-dump');
 
 				if (dataDump.length) {
+					$('#product-list').product_list('clear');
 					$('#product-list').product_list('updateTitle', dataDump.data('title'));
 					$.each(dataDump.data('products'), function(i, item) {
 						$('#product-list').product_list('add', item);
 					});
 				} else {
-					$('[data-provide~="alerts"]').alerts('add', 'You need to open a products widget on the left to load it');
+					$('[data-provide~="alerts"]').alerts('warning', 'You need to open a products widget on the left to load it');
 				}
 
 			});
