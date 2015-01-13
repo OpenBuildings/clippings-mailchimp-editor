@@ -3,8 +3,7 @@ chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		if (request.action == "request-widget-html") {
 
-			var block = document.querySelectorAll('CodeMirror pre'),
-					content = '';
+			var content = '';
 
 			[].forEach.call(document.querySelectorAll('.CodeMirror pre'), function(item) {
 				content += item.textContent + "\n";
