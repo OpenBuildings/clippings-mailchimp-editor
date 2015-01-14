@@ -50,11 +50,7 @@ $('[data-provide~="load"]')
 				var dataDump = $('<div>'+response.html+'</div>').find('#data-dump');
 
 				if (dataDump.length) {
-					$('#product-list').product_list('clear');
-					$('#product-list').product_list('updateTitle', dataDump.data('title'));
-					$.each(dataDump.data('products'), function(i, item) {
-						$('#product-list').product_list('add', item);
-					});
+					$('#product-list').product_list('load', dataDump.data('params'));
 				} else {
 					$('[data-provide~="alerts"]').alerts('warning', 'You need to open a products widget on the left to load it');
 				}
@@ -63,4 +59,15 @@ $('[data-provide~="load"]')
 		});
 	});
 
+$('[data-provide~="clear"]')
+	.on('click', function() {
+		$('#product-list').product_list('clear');
+	});
+
+// Load data saved from previous session
+$(function() {
+	if (localStorage.params) {
+		$('#product-list').product_list('load', JSON.parse(localStorage.params));
+	};
+});
 

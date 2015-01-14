@@ -51,6 +51,11 @@
 			return $(this.element.data('title'));
 		},
 
+		getTitleUrl: function()
+		{
+			return $(this.element.data('title-url'));
+		},
+
 		getProducts: function()
 		{
 			return $.map(this.element.find('tr'), function(item) {
@@ -75,15 +80,29 @@
 			this.element.tableDnDUpdate();
 		},
 
-		updateTitle: function (title)
+		load: function (params)
 		{
-			this.getTitle().val(title);
+			var self = this;
+
+			this.clear();
+
+			if (params.title) {
+				this.getTitle().val(params.title.text);
+				this.getTitleUrl().val(params.title.url);
+			};
+
+			$.each(params.products, function(i, item) {
+				self.add(item);
+			});
 		},
 
 		clear: function()
 		{
 			this.element.find('tr').remove();
 			this.updateSortable();
+			this.getTitle().val('');
+			this.getTitleUrl().val('');
+			this.save();
 		},
 
 		remove: function(item)
@@ -93,9 +112,26 @@
 			this.renderOutput();
 		},
 
+		save: function()
+		{
+			var products = this.getProducts(),
+				title = {
+					text: this.getTitle().val(),
+					url: this.getTitleUrl().val()
+				};
+
+			localStorage.params = JSON.stringify({products: products, title: title});
+		},
+
 		renderOutput: function() {
 			var products = this.getProducts(),
-				rows = [];
+				rows = [],
+				title = {
+					text: this.getTitle().val(),
+					url: this.getTitleUrl().val()
+				};
+
+			localStorage.params = JSON.stringify({products: products, title: title});
 
 			// separate rows into chunks of 3 as rows for the template
 			for (var i = 0; i < products.length; i+=3) {
@@ -110,8 +146,11 @@
 				.toggleClass("hidden", ! rows.length)
 				.val(
 					Mustache.render(this.getOutputTemplate(), {
-						title: this.getTitle().val(),
-						products: JSON.stringify(products),
+						params: JSON.stringify({
+							products: products,
+							title: title,
+						}),
+						title: title,
 						rows: rows
 					})
 				);
