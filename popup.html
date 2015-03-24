@@ -95,7 +95,40 @@
 </tr>
 		</script>
 		<script id="output-template" type="x-tmpl-mustache">{{#title}}
-<table width="100%" bgcolor="#eee">
+<style>
+.product-img {
+	display:block;
+	background-color:white;
+	height: 170px;
+}
+@media only screen and (max-width:640px) {
+    .product-img {
+        height: 140px !important;
+    }
+}
+@media only screen and (max-width:400px) {
+    .product-img {
+        height: 100px !important;
+    }
+}
+.product-text {
+	font-family:Arial;
+	font-size: 14px;
+	color: black;
+	text-decoration: none;
+	line-height: 16px;
+}
+.text-small {
+	line-height: 14px;
+}
+.text-muted {
+	color: #BBB;
+}
+.text-bold {
+	font-weight: bold;
+}
+</style>
+<table width="100%" style="background-color: #eeeeee">
 	<tr>
 		<td class="mcnTextContent">
 			<h3>
@@ -106,69 +139,81 @@
 	</tr>
 </table>
 {{/title}}
-<table cellpadding="0" cellspacing="0" width="100%" bgcolor="#eee">
+<table cellpadding="0" cellspacing="0" width="100%" style="background-color: #eeeeee">
 	<tbody>
 		{{#rows}}
 			<tr>
-				<td width="30%" align="center" valign="middle" {{#product1}} bgcolor="white"{{/product1}}>
+				<td width="30%" align="center" valign="middle" {{#product1}} style="background-color:white"{{/product1}}>
 					{{#product1}}
-					<a href="{{{product1.url}}}" style="display:block; background-color:white"><img src="{{{product1.cover_url}}}" style="max-height: 135px;max-width: 100%;"></a>
+					<a href="{{{product1.url}}}" class="product-img">
+						<img
+						 src="{{{product1.cover_url}}}"
+						 style="{{#product1.is_landscape}}width: 100%{{/product1.is_landscape}}{{^product1.is_landscape}}height: 100%{{/product1.is_landscape}}">
+					</a>
 					{{/product1}}
 				</td>
 				<td width="3%"></td>
-				<td width="30%" align="center" valign="middle" {{#product2}} bgcolor="white"{{/product2}}>
+				<td width="30%" align="center" valign="middle" {{#product2}} style="background-color:white"{{/product2}}>
 					{{#product2}}
-					<a href="{{{product2.url}}}" style="display:block; background-color:white"><img src="{{{product2.cover_url}}}" style="max-height: 135px;max-width: 100%;"></a>
+					<a href="{{{product2.url}}}" class="product-img">
+						<img
+						 src="{{{product2.cover_url}}}"
+						 style="{{#product2.is_landscape}}width: 100%{{/product2.is_landscape}}{{^product2.is_landscape}}height: 100%{{/product2.is_landscape}}">
+					</a>
 					{{/product2}}
 				</td>
 				<td width="3%"></td>
-				<td width="30%" align="center" valign="middle" {{#product3}} bgcolor="white"{{/product3}}>
+				<td width="30%" align="center" valign="middle" {{#product3}} style="background-color:white"{{/product3}}>
 					{{#product3}}
-					<a href="{{{product3.url}}}" style="display:block; background-color:white"><img src="{{{product3.cover_url}}}" style="max-height: 135px;max-width: 100%;"></a>
+					<a href="{{{product3.url}}}" class="product-img">
+						<img
+						 src="{{{product3.cover_url}}}"
+						 style="{{#product3.is_landscape}}width: 100%{{/product3.is_landscape}}{{^product3.is_landscape}}height: 100%{{/product3.is_landscape}}">
+					</a>
 					{{/product3}}
 				</td>
 			<tr>
 			<tr>
 				<td style="padding: 7px 0" valign="top">
 					{{#product1}}
-					<a href="{{{product1.url}}}" style="font-family:Arial; font-size: 14px; color: black; text-decoration: none; line-height: 16px">{{product1.name}}</a>
+					<a href="{{{product1.url}}}" class="product-text">{{product1.name}}</a>
 					<br>
-					<a href="{{{product1.brand_url}}}" style="font-family:Arial; font-size: 14px; color: #BBB; text-decoration: none">by {{product1.brand_name}}</a>
+					<a href="{{{product1.brand_url}}}" class="product-text text-small text-muted">by {{product1.brand_name}}</a>
 					{{/product1}}
 				</td>
 				<td></td>
 				<td style="padding: 7px 0" valign="top">
 					{{#product2}}
-					<a href="{{{product2.url}}}" style="font-family:Arial; font-size: 14px; color: black; text-decoration: none; line-height: 16px">{{product2.name}}</a>
+					<a href="{{{product2.url}}}" class="product-text">{{product2.name}}</a>
 					<br>
-					<a href="{{{product2.brand_url}}}" style="font-family:Arial; font-size: 14px; color: #BBB; text-decoration: none">by {{product2.brand_name}}</a>
+					<a href="{{{product2.brand_url}}}" class="product-text text-small text-muted">by {{product2.brand_name}}</a>
 					{{/product2}}
 				</td>
 				<td></td>
 				<td style="padding: 7px 0" valign="top">
 					{{#product3}}
-					<a href="{{{product3.url}}}" style="font-family:Arial; font-size: 14px; color: black; text-decoration: none; line-height: 16px">{{product3.name}}</a>
+					<a href="{{{product3.url}}}" class="product-text">{{product3.name}}</a>
 					<br>
-					<a href="{{{product3.brand_url}}}" style="font-family:Arial; font-size: 14px; color: #BBB; text-decoration: none">by {{product3.brand_name}}</a>
+					<a href="{{{product3.brand_url}}}" class="product-text text-small text-muted">by {{product3.brand_name}}</a>
 					{{/product3}}
 				</td>
 			</tr>
 			<tr>
 				<td style="padding-bottom: 20px">
 					{{#product1}}
-					<a href="{{{product1.url}}}" style="color: black; font-weight: bold; font-family: Arial; font-size: 14px; text-decoration: none">Shop now &#x203A;</a>
+					<a href="{{{product1.url}}}" class="product-text text-small text-bold">Shop now &#x203A;</a>
 					{{/product1}}
 				</td>
 				<td></td>
 				<td style="padding-bottom: 20px">
 					{{#product2}}
-					<a href="{{{product2.url}}}" style="color: black; font-weight: bold; font-family: Arial; font-size: 14px; text-decoration: none">Shop now &#x203A;</a>
+					<a href="{{{product2.url}}}" class="product-text text-small text-bold">Shop now &#x203A;</a>
 					{{/product2}}
 				</td>
 				<td></td>
 				<td style="padding-bottom: 20px">
 					{{#product3}}
-					<a href="{{{product3.url}}}" style="color: black; font-weight: bold; font-family: Arial; font-size: 14px; text-decoration: none">Shop now &#x203A;</a>
+					<a href="{{{product3.url}}}" class="product-text text-small text-bold">Shop now &#x203A;</a>
 					{{/product3}}
 				</td>
 			</tr>
