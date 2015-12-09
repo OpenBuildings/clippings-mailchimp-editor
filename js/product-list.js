@@ -51,6 +51,11 @@
 			return $(this.element.data('title'));
 		},
 
+		getDate: function()
+		{
+			return $(this.element.data('date'));
+		},
+
 		getTitleUrl: function()
 		{
 			return $(this.element.data('title-url'));
@@ -59,8 +64,25 @@
 		getProducts: function()
 		{
 			return $.map(this.element.find('tr'), function(item) {
-				return $(item).data('product');
+				return $(item).data('product')
 			});
+		},
+
+		getProductsData: function()
+		{
+			var date = this.getDate().val()
+			console.log(date)
+
+			if (date) {
+				return $.map(this.getProducts(), function (product) {
+					product.url = product.url.replace('%2A%7CDATE%3A%7C%2A', encodeURIComponent(date))
+					product.brand_url = product.brand_url.replace('%2A%7CDATE%3A%7C%2A', encodeURIComponent(date))
+
+					return product
+				})
+			} else {
+				return this.getProducts()
+			}
 		},
 
 		add: function (product) {
@@ -89,6 +111,10 @@
 			if (params.title) {
 				this.getTitle().val(params.title.text);
 				this.getTitleUrl().val(params.title.url);
+			};
+
+			if (params.date) {
+				this.getDate().val(params.date);
 			};
 
 			$.each(params.products, function(i, item) {
@@ -124,14 +150,15 @@
 		},
 
 		renderOutput: function() {
-			var products = this.getProducts(),
+			var products = this.getProductsData(),
 				rows = [],
+				date = this.getDate().val(),
 				title = {
 					text: this.getTitle().val(),
 					url: this.getTitleUrl().val()
 				};
 
-			localStorage.params = JSON.stringify({products: products, title: title});
+			localStorage.params = JSON.stringify({products: this.getProducts(), title: title, date: date});
 
 			// separate rows into chunks of 3 as rows for the template
 			for (var i = 0; i < products.length; i+=3) {
@@ -151,6 +178,7 @@
 							title: title,
 						}),
 						title: title,
+						date: date,
 						rows: rows
 					})
 				);

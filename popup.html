@@ -19,17 +19,31 @@
 					</button>
 				</span>
 			</div>
-			<form class="form-vertical panel-body" data-provide="alerts" data-alerts-template="#alerts-template">
-				<div class="form-group has-feedback">
-					<input
-						id="product"
-						data-provide="typeahead"
-						data-typeahead-list="#product-list"
-						type="search"
-						autofocus
-						class="form-control"
-						placeholder="Product Name or ID">
-					<span class="glyphicon glyphicon-time form-control-feedback hidden type" data-typeahead-loading></span>
+			<form
+			 class="form-vertical panel-body"
+			 data-provide="alerts"
+			 data-alerts-template="#alerts-template">
+				<div class="row">
+					<div class="col-xs-6 form-group">
+						<div class="has-feedback">
+							<input
+								id="product"
+								data-provide="typeahead"
+								data-typeahead-list="#product-list"
+								type="search"
+								autofocus
+								class="form-control"
+								placeholder="Product Name or ID">
+							<span class="glyphicon glyphicon-time form-control-feedback hidden type" data-typeahead-loading></span>
+						</div>
+					</div>
+					<div class="col-xs-6 form-group">
+						<input
+							id="date"
+							type="input"
+							class="form-control"
+							placeholder="Date">
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-6 form-group">
@@ -56,6 +70,7 @@
 					data-product-template="#product-template"
 					data-output-template="#output-template"
 					data-title="#title"
+					data-date="#date"
 					data-title-url="#title-url">
 					<tbody>
 					</tbody>
@@ -99,32 +114,24 @@
 .product-img {
 	display:block;
 	background-color:white;
-	height: 170px;
+	height: 120px;
 }
 @media only screen and (max-width:640px) {
-    .product-img {
-        height: 140px !important;
-    }
-}
-@media only screen and (max-width:400px) {
     .product-img {
         height: 100px !important;
     }
 }
+@media only screen and (max-width:400px) {
+    .product-img {
+        height: 80px !important;
+    }
+}
 .product-text {
 	font-family:Arial;
-	font-size: 14px;
+	font-size: 12px;
 	color: black;
 	text-decoration: none;
-	line-height: 16px;
-}
-.text-small {
 	line-height: 14px;
-}
-.text-muted {
-	color: #BBB;
-}
-.text-bold {
 	font-weight: bold;
 }
 </style>
@@ -178,7 +185,7 @@
 					{{#product1}}
 					<a href="{{{product1.url}}}" class="product-text">{{product1.name}}</a>
 					<br>
-					<a href="{{{product1.brand_url}}}" class="product-text text-small text-muted">by {{product1.brand_name}}</a>
+					<a href="{{{product1.brand_url}}}" class="product-text">{{product1.brand_name}} &rsaquo;</a>
 					{{/product1}}
 				</td>
 				<td></td>
@@ -186,7 +193,7 @@
 					{{#product2}}
 					<a href="{{{product2.url}}}" class="product-text">{{product2.name}}</a>
 					<br>
-					<a href="{{{product2.brand_url}}}" class="product-text text-small text-muted">by {{product2.brand_name}}</a>
+					<a href="{{{product2.brand_url}}}" class="product-text"> {{product2.brand_name}} &rsaquo;</a>
 					{{/product2}}
 				</td>
 				<td></td>
@@ -194,26 +201,7 @@
 					{{#product3}}
 					<a href="{{{product3.url}}}" class="product-text">{{product3.name}}</a>
 					<br>
-					<a href="{{{product3.brand_url}}}" class="product-text text-small text-muted">by {{product3.brand_name}}</a>
-					{{/product3}}
-				</td>
-			</tr>
-			<tr>
-				<td style="padding-bottom: 20px">
-					{{#product1}}
-					<a href="{{{product1.url}}}" class="product-text text-small text-bold">Shop now &#x203A;</a>
-					{{/product1}}
-				</td>
-				<td></td>
-				<td style="padding-bottom: 20px">
-					{{#product2}}
-					<a href="{{{product2.url}}}" class="product-text text-small text-bold">Shop now &#x203A;</a>
-					{{/product2}}
-				</td>
-				<td></td>
-				<td style="padding-bottom: 20px">
-					{{#product3}}
-					<a href="{{{product3.url}}}" class="product-text text-small text-bold">Shop now &#x203A;</a>
+					<a href="{{{product3.brand_url}}}" class="product-text">{{product3.brand_name}} &rsaquo;</a>
 					{{/product3}}
 				</td>
 			</tr>
