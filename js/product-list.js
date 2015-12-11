@@ -75,7 +75,6 @@
 			if (date) {
 				return $.map(this.getProducts(), function (product) {
 					product.url = product.url.replace('%2A%7CDATE%3A%7C%2A', encodeURIComponent(date))
-					product.brand_url = product.brand_url.replace('%2A%7CDATE%3A%7C%2A', encodeURIComponent(date))
 
 					return product
 				})
