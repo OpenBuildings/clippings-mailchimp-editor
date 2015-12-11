@@ -3,7 +3,7 @@
 
   "name": "Clippings Mailchimp Editor",
   "description": "Adds ability to insert products section in mailchimp template",
-  "version": "0.3.1",
+  "version": "0.3.2",
 
   "permissions": [
     "tabs",
