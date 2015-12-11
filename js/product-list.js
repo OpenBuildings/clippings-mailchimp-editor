@@ -71,7 +71,6 @@
 		getProductsData: function()
 		{
 			var date = this.getDate().val()
-			console.log(date)
 
 			if (date) {
 				return $.map(this.getProducts(), function (product) {
